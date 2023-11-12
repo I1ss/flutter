@@ -5,6 +5,8 @@ import 'package:individualhomework/Models/Movie.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../Models/Note.dart';
+
 class DbProvider {
   DbProvider._();
 
@@ -23,7 +25,7 @@ class DbProvider {
 
   Future<Database> _initDb() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = '${directory.path}catalogs.db';
+    String path = '${directory.path}catal.db';
     final bool dbExists = await databaseExists(path);
 
     final db = await openDatabase(path, version: 1, onCreate: _createDb);
@@ -31,64 +33,64 @@ class DbProvider {
     if (!dbExists) {
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/d/de/Movie_poster_the_shawshank_redemption.jpg",
         "name": "Побег из Шоушенка", "description": "Несправедливо осужденный банкир готовит побег из тюрьмы.", "director": "Фрэнк Дарабонт",
-        "categoryName": "Драма", "year": "1994"});
+        "categoryName": "Драма", "year": "1994", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/c/c4/Godfather_vhs.jpg",
         "name": "	Крёстный отец", "description": "Престарелый дон Карлеоне понемногу теряет влияние в преступном мире, и тем самым дает возможность конкурентам начать «войну».",
-        "director": "Фрэнсис Форд Коппола", "categoryName": "Драма", "year": "1972"});
+        "director": "Фрэнсис Форд Коппола", "categoryName": "Драма", "year": "1972", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/f/f4/%D0%A2%D1%91%D0%BC%D0%BD%D1%8B%D0%B9_%D1%80%D1%8B%D1%86%D0%B0%D1%80%D1%8C_%282008%29_%D0%BF%D0%BE%D1%81%D1%82%D0%B5%D1%80.jpg",
         "name": "Тёмный рыцарь", "description": "Крутецкий супер-геройский боевик.", "director": "Кристофер Нолан",
-        "categoryName": "Боевик", "year": "2008"});
+        "categoryName": "Боевик", "year": "2008", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/a/a1/Godfather_2.jpg",
         "name": "Крёстный отец 2", "description": "Для дона Корлеоне и его сына не существует моральных преград на пути к достижению целей.",
-        "director": "Фрэнсис Форд Коппола", "categoryName": "Драма", "year": "1974"});
+        "director": "Фрэнсис Форд Коппола", "categoryName": "Драма", "year": "1974", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/12_Angry_Men_%281957_film_poster%29.jpg/800px-12_Angry_Men_%281957_film_poster%29.jpg",
         "name": "12 разгневанных мужчин", "description": "12 присяжных должны решить судьбу парня, который якобы зарезал своего отца ножом.",
-        "director": "Фрэнсис Форд Коппола", "categoryName": "Драма", "year": "1957"});
+        "director": "Фрэнсис Форд Коппола", "categoryName": "Драма", "year": "1957", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/3/38/Schindler%27s_List_movie.jpg",
         "name": "Список Шиндлера", "description": "Загадочный мужчина спасает евреев во время второй мировой войны.",
-        "director": "Стивен Спилберг", "categoryName": "Драма", "year": "1993"});
+        "director": "Стивен Спилберг", "categoryName": "Драма", "year": "1993", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/5/53/The_Lord_of_the_Rings._The_Return_of_the_King_%E2%80%94_movie.jpg",
         "name": "Властелин колец: Возвращение короля", "description": "Арагорн штурмует Мордор, а Фродо устал бороться с чарами кольца.",
-        "director": "Питер Джексон", "categoryName": "Приключение", "year": "2003"});
+        "director": "Питер Джексон", "categoryName": "Приключение", "year": "2003", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/9/93/Pulp_Fiction.jpg",
         "name": "Криминальное чтиво", "description": "Двое бандитов Винсент Вега и Джулс Винфилд ведут философские беседы в перерывах между разборками и решением проблем с должниками криминального босса Марселласа.",
-        "director": "Квентин Тарантино", "categoryName": "Драма", "year": "1994"});
+        "director": "Квентин Тарантино", "categoryName": "Драма", "year": "1994", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/0/08/The_Lord_of_the_Rings._The_Fellowship_of_the_Ring_%E2%80%94_movie.jpg",
         "name": "Властелин колец: Братство Кольца", "description": "Фродо Бэггинс отправляется спасать Средиземье.",
-        "director": "Питер Джексон", "categoryName": "Приключение", "year": "2001"});
+        "director": "Питер Джексон", "categoryName": "Приключение", "year": "2001", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/f/fd/Goodbadugly.JPG",
         "name": "Хороший, плохой, злой", "description": "Вестерн про охотников за головами.",
-        "director": "Серджо Леоне", "categoryName": "Вестерн", "year": "1966"});
+        "director": "Серджо Леоне", "categoryName": "Вестерн", "year": "1966", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/d/de/%D0%A4%D0%BE%D1%80%D1%80%D0%B5%D1%81%D1%82_%D0%93%D0%B0%D0%BC%D0%BF.jpg",
         "name": "Форрест Гамп", "description": "Полувековая история США глазами чудака из Алабамы.",
-        "director": "Роберт Земекис", "categoryName": "Приключение", "year": "1994"});
+        "director": "Роберт Земекис", "categoryName": "Приключение", "year": "1994", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/8/8a/Fight_club.jpg",
         "name": "Бойцовский клуб", "description": "Страховой работник разрушает рутину своей благополучной жизни.",
-        "director": "Дэвид Финчер", "categoryName": "Драма", "year": "1999"});
+        "director": "Дэвид Финчер", "categoryName": "Драма", "year": "1999", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/f/f0/The_Lord_of_the_Rings._The_Two_Towers_—_movie.jpg",
         "name": "Властелин колец: Две крепости", "description": "Братство распалось, но Кольцо Всевластья должно быть уничтожено.",
-        "director": "Питер Джексон", "categoryName": "Приключение", "year": "2002"});
+        "director": "Питер Джексон", "categoryName": "Приключение", "year": "2002", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/b/bc/Poster_Inception_film_2010.jpg",
         "name": "Начало", "description": "Кобб – талантливый вор, лучший из лучших в опасном искусстве извлечения.",
-        "director": "Кристофер Нолан", "categoryName": "Научная фантастика", "year": "2010"});
+        "director": "Кристофер Нолан", "categoryName": "Научная фантастика", "year": "2010", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/e/e0/Empire20strikes20back_old.jpg",
         "name": "Звёздные войны. Эпизод V: Империя наносит ответный удар", "description": "Юный Люк продолжает постигать Силу, но его ждет страшная тайна.",
-        "director": "Ирвин Кершнер", "categoryName": "Приключение", "year": "1980"});
+        "director": "Ирвин Кершнер", "categoryName": "Приключение", "year": "1980", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/9/9d/Matrix-DVD.jpg",
         "name": "Матрица", "description": "Хакер Нео узнает, что его мир — виртуальный.",
-        "director": "Энди и Ларри Вачовски", "categoryName": "Научная фантастика", "year": "1999"});
+        "director": "Энди и Ларри Вачовски", "categoryName": "Научная фантастика", "year": "1999", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/9/99/Goodfellas_Cover.jpg",
         "name": "Славные парни", "description": "Путь к власти легендарного мафиози Генри Хилла.",
-        "director": "Мартин Скорсезе", "categoryName": "Драма", "year": "1990"});
+        "director": "Мартин Скорсезе", "categoryName": "Драма", "year": "1990", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/2/26/One_Flew_Over_the_Cuckoo%27s_Nest_poster.jpg",
         "name": "Пролетая над гнездом кукушки", "description": "Джек Николсон — запертый в психушке бунтарь, который борется с системой.",
-        "director": "Милош Форман", "categoryName": "Драма", "year": "1975"});
+        "director": "Милош Форман", "categoryName": "Драма", "year": "1975", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/ru/8/83/Se7en_%28poster%29.jpg",
         "name": "Семь", "description": "Детективы ищут маньяка, убивающего грешников.",
-        "director": "Дэвид Финчер", "categoryName": "Драма", "year": "1995"});
+        "director": "Дэвид Финчер", "categoryName": "Драма", "year": "1995", "is_favorite": 0});
       await db.insert("Movie", {"imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Sevensamurai-movieposter1954.jpg/800px-Sevensamurai-movieposter1954.jpg",
         "name": "Семь самураев", "description": "Бедные крестьяне нанимают для защиты деревни семерых самураев.",
-        "director": "Акира Куросава", "categoryName": "Боевик", "year": "1954"});
+        "director": "Акира Куросава", "categoryName": "Боевик", "year": "1954", "is_favorite": 0});
 
       await db.insert("Category", {"imageSource": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Sevensamurai-movieposter1954.jpg/800px-Sevensamurai-movieposter1954.jpg",
          "categoryName": "Драма"});
@@ -114,7 +116,8 @@ class DbProvider {
         "description TEXT,"
         "director TEXT,"
         "categoryName TEXT,"
-        "year INTEGER"
+        "year INTEGER,"
+        "is_favorite INTEGER DEFAULT 0"
         ");");
 
     await db.execute("CREATE TABLE Category ("
@@ -122,6 +125,18 @@ class DbProvider {
         "imageSource TEXT,"
         "categoryName TEXT"
         ");");
+
+    await db.execute("CREATE TABLE Note ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "text TEXT,"
+        "film_id INTEGER"
+        ");");
+  }
+
+  Future<List<Note>> getAllNotes() async {
+    Database db = await this.database;
+    final List<Map<String, dynamic>> data = await db.query("Note");
+    return data.map((item) => Note.fromMap(item)).toList();
   }
 
   Future<List<Category>> getAllCategories() async {
@@ -143,5 +158,35 @@ class DbProvider {
       return Movie.fromMap(data.first);
     }
     return null;
+  }
+
+  Future<void> updateMovieFavoriteStatus(int id, bool isFavorite) async {
+    Database db = await this.database;
+    await db.update(
+      "Movie",
+      {"is_favorite": isFavorite ? 1 : 0},
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
+
+  Future<void> createNote(Note note) async {
+    Database db = await this.database;
+    await db.insert("Note", note.toMap());
+  }
+
+  Future<void> deleteNote(int id) async {
+    Database db = await this.database;
+    await db.delete("Note", where: "id = ?", whereArgs: [id]);
+  }
+
+  Future<void> updateNoteText(int id, String newText) async {
+    Database db = await this.database;
+    await db.update(
+      "Note",
+      {"text": newText},
+      where: "id = ?",
+      whereArgs: [id],
+    );
   }
 }

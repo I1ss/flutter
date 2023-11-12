@@ -7,8 +7,9 @@ class Movie {
   int? year;
   int? scores;
   int? id;
+  bool isFavorite;
 
-  Movie({this.imageSource, this.name, this.description, this.director, this.categoryName, this.year, this.scores, this.id});
+  Movie({this.imageSource, this.name, this.description, this.director, this.categoryName, this.year, this.scores, this.id, required this.isFavorite});
 
   Map<String, dynamic> toMap() {
     return {
@@ -19,6 +20,7 @@ class Movie {
       'categoryName': categoryName,
       'year': year,
       'scores': scores,
+      'is_favorite': isFavorite ? 1 : 0
     };
   }
 
@@ -32,6 +34,7 @@ class Movie {
       year: map['year'],
       scores: map['scores'],
       id: map['id'],
+      isFavorite: map['is_favorite'] == 1
     );
   }
 }

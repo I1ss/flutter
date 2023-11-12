@@ -1,6 +1,8 @@
 import 'package:individualhomework/Models/Category.dart';
 import 'package:individualhomework/Models/Movie.dart';
 
+import '../../Models/Note.dart';
+
 abstract class CatalogState {}
 
 class CategoriesState extends CatalogState {
@@ -17,9 +19,26 @@ class MoviesState extends CatalogState {
   MoviesState(this.movies, this.categoryName, this.offset);
 }
 
-class MovieState extends CatalogState {
-  Movie? movie;
+class FavoritesState extends CatalogState {
+  List<Movie> movies = [];
   double offset;
 
-  MovieState(this.movie, this.offset);
+  FavoritesState(this.movies, this.offset);
+}
+
+class MovieState extends CatalogState {
+  List<Note> notes = [];
+  Movie? movie;
+  double offset;
+  bool isFavorite;
+
+  MovieState(this.movie, this.notes, this.offset, this.isFavorite);
+}
+
+class NotesState extends CatalogState {
+  List<Movie> movies = [];
+  List<Note> notes = [];
+  double offset;
+
+  NotesState(this.movies, this.notes, this.offset);
 }
